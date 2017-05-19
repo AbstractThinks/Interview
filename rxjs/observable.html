@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="result"></div>
+</body>
+<script src="http://cdn.bootcss.com/es6-shim/0.35.3/es6-shim.min.js" charset="utf-8"></script>
+<script src="http://cdn.bootcss.com/rxjs/5.4.0/Rx.js" charset="utf-8"></script>
+<script type="text/javascript">
+  //stream.subscribe(fnValue, fnError, fnComplete)
+
+  let stream$ = Rx.Observable.create((Observer) => {
+    Observer.next("hello world")
+    Observer.error('error message');  //终止当前流
+    Observer.complete();              //终止当前流
+  });
+  stream$.subscribe((data) => {
+    console.log('Data', data)
+  },(error) => {
+    console.log('Error', error)
+  },(data) => {
+    console.log('Data', "complete")
+  })
+
+
+// 冷的 observable
+// 冷的 observable 两个订阅者得到值是两份完全相同的副本
+let streamcold$ = Rx.Observable.of(1,2,3);  //Observer.next(1),Observer.next(2),Observer.next(3)
+//订阅者 1: 1,2,3
+streamcold$.subscribe(
+   data => console.log('data', data),
+   err => console.error(err),
+   () => console.log('completed')
+)
+
+// 订阅者 2: 1,2,3
+streamcold$.subscribe(
+   data => console.log(data),
+   err => console.error(err),
+   () => console.log('completed')
+)
+
+// 热的 observable
+// 订阅者只能收到当它开始订阅后的值，这很像是足球比赛的实况直播，如果你在开场5分钟后才开始观看，你会错失开场前5分钟的一切，从观看的这一刻起你才开始接收数据
+
+// 假热模式
+// let liveStreaming$ = Rx.Observable.interval(1000).take(5);
+//
+// liveStreaming$.subscribe(
+//   data => console.log('subscriber from first minute', data),
+//   err => console.log(err),
+//   () => console.log('first completed')
+// )
+//
+// setTimeout(() => {
+//   liveStreaming$.subscribe(
+//     data => console.log('subscriber from 2nd minute', data),
+//     err => console.log(err),
+//     () => console.log('2nd completed')
+//   )
+// },3000)
+// subscriber from first minute 0
+// subscriber from first minute 1
+// subscriber from first minute 2
+// subscriber from 2nd minute 0
+// subscriber from first minute 3
+// subscriber from 2nd minute 1
+// subscriber from first minute 4
+// first completed
+// subscriber from 2nd minute 2
+// subscriber from 2nd minute 3
+// subscriber from 2nd minute 4
+// 2nd completed
+
+// 由冷及热 - 凯蒂·佩里模式 publish() 和 connect()
+let publisher$ = Rx.Observable
+.interval(1000)
+.take(5)
+.publish();
+
+
+publisher$.subscribe(
+  data => console.log('subscriber from first minute',data),
+  err => console.log(err),
+  () => console.log('first completed')
+)
+
+setTimeout(() => {
+    publisher$.subscribe(
+        data => console.log('subscriber from 2nd minute', data),
+        err => console.log(err),
+        () => console.log('2nd completed')
+    )
+}, 3000)
+
+
+publisher$.connect();
+// subscriber from first minute 0
+// subscriber from first minute 1
+// subscriber from first minute 2
+// subscriber from 2nd minute 2
+// subscriber from first minute 3
+// subscriber from 2nd minute 3
+// subscriber from first minute 4
+// subscriber from 2nd minute 4
+// first completed
+// 2nd completed
+</script>
+
+<script type="text/javascript">
+let person$ = Rx.Observable
+.ajax({
+    url : 'http://swapi.co/api/people/1',
+    crossDomain: true,
+    createXHR: function () {
+      return new XMLHttpRequest();
+   }
+  })
+.map(e => e.response);
+
+const subscription = person$
+.subscribe(res => {
+    let element = document.getElementById('result');
+    element.innerHTML = res.name
+    console.log(res)
+});
+</script>
+
+
+
+<script type="text/javascript">
+  
+</script>
+</html>

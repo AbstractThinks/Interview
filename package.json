@@ -1,0 +1,22 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "(http://lzw.me/pages/ecmascript/)\r (http://www.infoq.com/cn/ECMAScript)\r (https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emobossemo/Interview.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emobossemo/Interview/issues"
+  },
+  "homepage": "https://github.com/emobossemo/Interview#readme",
+  "dependencies": {
+  }
+
+}

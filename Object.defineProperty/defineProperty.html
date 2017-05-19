@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+
+		<p>您好，<span id="username"></span></p>
+	</div>
+	<div>
+		<button onclick="jesse()">我的名字是jesse</button>
+		<button onclick="alvin()">我的名字是alvin</button>
+	</div>
+</body>
+<script>
+	var o = {}
+	// 添加属性和默认值
+	Object.defineProperty(o, "a", {
+		__proto__: null,
+		value: 1,            //对象属性的默认值，默认值为undefined
+		writable: true,		 //对象属性是否可修改,flase为不可修改，默认值为true, 不能和get,set一起定义属性
+		// o.a="qiang";         
+		// console.log(o.a);   // 1 writable: false; 不可修改value
+		enumerable: true,    //对象属性是否可通过for-in循环，flase为不可循环，默认值为true
+		// for(var i in o.a){
+		//     console.log(o.a[i]) //无结果，不可循环
+		// }
+		configurable: true   //能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
+		//delete o.a
+		//console.log(person.name) // 1 configurable: false 不可删除
+	});
+
+
+
+	// 设置和修改属性
+	Object.defineProperty(o, "username2", {
+		get : function getUsername2() { return username2;},
+		set : function setUsername2(newValue) { username2 = newValue;},
+		enumerable: true,
+		configurable: true
+	});
+
+	//视图控制器
+	Object.defineProperty(o, "username", {
+		get : function getUsername() { document.getElementById("username").innerHTML;},
+		set : function setUsername(newName) { document.getElementById("username").innerHTML = newName;},
+	});
+
+	function jesse() {
+		o.username = "jesse";
+		console.log(o);
+	}
+	function alvin() {
+		o.username = "alvin";
+		console.log(o);
+	}
+</script>
+</html>

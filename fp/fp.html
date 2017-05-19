@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script src="http://cdn.bootcss.com/es6-shim/0.35.3/es6-shim.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+// var compose = function(f,g) {
+//   return function(x) {
+//     return f(g(x));
+//   };
+// };
+if (2 = 2) {
+  
+}
+let compose = (f, g) => (x) => f(g(x))
+let toUpperCase = (x) => x.toUpperCase();
+let exclaim = (x) => x + '!';
+let shout = compose(exclaim, toUpperCase);
+console.log(shout('send in the clowns'))
+
+</script>
+</html>

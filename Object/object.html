@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+    function h() {}
+    var ii = new h();
+    console.dir(ii)
+	var a = new Object({aa: '1'});
+	console.dir(Object);
+	console.dir(a);
+	console.log(
+		a.hasOwnProperty('aa')		// true
+	);
+	console.log(
+		a.hasOwnProperty('toString')   // false
+	);
+
+	function MyObject() {}
+	var obj = new MyObject();
+	var obj2 = {};
+	console.log("isPrototypeOf(obj):" + Object.prototype.isPrototypeOf(obj));		// true
+	console.log("isPrototypeOf(obj2):" + Object.prototype.isPrototypeOf(obj2));		// true
+
+
+	var obj3 = { name: "objName" } 
+	for (var i in obj3) { 
+		console.log(i); 	// name
+	}
+	console.log(obj3.propertyIsEnumerable("constructor"))   // false
+	console.log(obj3.propertyIsEnumerable("name"))			// true
+</script>
+</html>
