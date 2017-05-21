@@ -16,14 +16,21 @@
 //     return f(g(x));
 //   };
 // };
-if (2 = 2) {
-  
-}
+
 let compose = (f, g) => (x) => f(g(x))
 let toUpperCase = (x) => x.toUpperCase();
 let exclaim = (x) => x + '!';
 let shout = compose(exclaim, toUpperCase);
 console.log(shout('send in the clowns'))
+
+</script>
+<script type="text/javascript">
+    let arrow = x => y => x + y;
+    let arrow2 = x => (y => x + y);
+    let arrow3 = (x, y) => ({x, y});  
+    console.log(arrow(1)(2))
+    console.log(arrow2(2)(2))
+    console.log(arrow3(3, 4))
 
 </script>
 </html>

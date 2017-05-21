@@ -18,6 +18,22 @@ var memoize = function(f) {
 > 3. 可测试性（Testable）
 > 4. 合理性（Reasonable）
 
+### 纯函数
+> 对于相同的输入，永远会得到相同的输出，而且没有任何可观察的副作用，也不依赖外部环境的状态
+
+```javascript
+var arr = [1, 2, 3, 4, 5];
+xs.slice(0, 3); //[1, 2, 3]
+xs.slice(0, 3); //[1, 2, 3]
+// slice 为纯函数
+
+xs.splice(0, 3);    //[1, 2, 3]
+xs.splice(0, 3);    //[4, 5]
+xs.splice(0, 3);    //[]
+//  splice 为非纯函数
+
+```
+
 ### 柯里化（curry）
 > 只传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数
 
@@ -37,8 +53,25 @@ addTen(2);
 // 12
 ```
 
-### 范畴学（category theory）
-> 映射化简
+### 代码组合－－范畴学（category theory）
+> 使用纯函数和以及将它柯里化后
+> h(g(f(x)))  //包菜式代码
+
+```javascript
+
+var compose = function(f, g) {
+    return function(x) {
+        return f(g(x));
+    }
+}
+//或者
+var compose = (f, g) => (x => f(g(x)))
+
+var add1 = x => x + 1;
+var mul5 = x => x*5;
+compose(mul5, add1)(2); //15
+//compose(fn...)(val...)
+```
 
 
 ### 声明式代码（）
