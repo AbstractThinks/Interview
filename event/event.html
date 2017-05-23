@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="outer" style="width:300px; height: 400px;background:green">
+    <div id="inner" class="" style="width: 200px; height: 200px;background:red">
+
+    </div>
+  </div>
+</body>
+<script>
+window.onload = function () {
+  //element.addEventListener(event, function, useCapture)
+  //false- 默认。事件句柄在冒泡阶段执行
+  document.getElementById("inner").addEventListener("click", function(){
+    console.log("click")
+  }, false);
+  // document.getElementById("outer").addEventListener("click", function(){
+  //   console.log("outer")
+  // }, false);
+  document.getElementById("inner").addEventListener("touchstart", touchEvent, false);
+  document.getElementById("inner").addEventListener("touchend", touchEvent, false);
+  document.getElementById("inner").addEventListener("touchmove", touchEvent, false);
+
+  document.getElementById("inner").addEventListener("mouseover ", mouseEvent, false);
+  document.getElementById("inner").addEventListener("mouseout", mouseEvent, false);
+  // document.getElementById("inner").addEventListener("touchend ", function(){
+  //   console.log("touchend ")
+  // }, false);
+  // document.getElementById("inner").addEventListener("mouseover  ", function(){
+  //   console.log("mouseover ")
+  // }, false);
+
+}
+
+function mouseEvent (e) {
+  switch (e.type) {
+    case "mouseover":
+      console.log("mouseover ");
+      return;
+    case "mouseout":
+      console.log("mouseout ");
+      return;
+    default:
+      console.log("null")
+  }
+}
+
+function touchEvent (e) {
+  switch (e.type) {
+    case "touchstart":
+      console.log("touchstart ");
+      return;
+    case "touchmove":
+      console.log("touchmove ");
+      return;
+    case "touchend":
+      console.log("touchend ");
+      return;
+    default:
+      console.log("null")
+  }
+
+}
+</script>
+</html>

@@ -109,3 +109,47 @@ var authenticate = compose(logIn, toUser);
 ### Monad
 
 ### Applicative Functor
+
+
+### 实践
+> 1. 禁用var/let，所有东西都用const定义，也就是说无变量，强制immutable。
+> 2. 禁用分号，也就是不让“顺序执行”，解除过程式编程范式。你不是不爱写分号吗，这次彻底不需要写了
+> 3. 禁用if/else，但允许用条件表达式condition ? expr1 : expr2。
+> 4. 禁用for/while/do-while。
+> 5. 禁用prototype和this来解除JS中的面向对象编程范式。
+> 6. 禁用function和return关键字，仅用lambda表达式来编程（JS里叫箭头函数）。
+> 7. 禁用多参数函数，只允许使用单个参数，相当于强行curry化
+
+```javascript
+for (var i = 0; i < arr.length; i++) {
+    // ...
+}
+
+ =>
+
+function loop_on_array(arr, body, i) {
+  if (i < arr.length) {
+    body(arr[i])
+    loop_on_array(arr, body, i+1)
+  }
+}
+// 使用了function定义：这个最简单，改成箭头函数就行了
+// 使用了多个参数：这个可以简单的通过curry化来解决
+// 使用了if/else：这个可以简单的通过条件表达式来解决
+// 使用了顺序执行，也就是body(i)和loop(arr, body, i + 1)这两句代码使用了顺序执行
+
+ =>
+
+
+
+
+```
+### map实践
+```javascript
+const map = f => arr => arr.length === 0? [] : [f(arr[0])].concat(map(f)(arr.slice(1)))
+
+```
+### sum实践
+```javascript
+const sum = accumulator => ([x, ...xs]) => x === undefined ? accumulator : sum(x + accumulator)(xs)
+```
