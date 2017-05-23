@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+  <script src="http://cdn.bootcss.com/es6-shim/0.35.3/es6-shim.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      const isKitten = cat => cat.months < 7
+      const getName = cat => cat.name
+      const getKittenNames = cats => cats.filter(isKitten).map(getName)
+      const cats = [
+        { name: 'Mojo',    months: 84 },
+        { name: 'Mao-Mao', months: 34 },
+        { name: 'Waffles', months: 4 },
+        { name: 'Pickles', months: 6 }
+      ]
+      const kittens = getKittenNames(cats)
+      console.log(kittens)
+  </script>
+</html>
