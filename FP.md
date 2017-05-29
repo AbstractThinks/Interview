@@ -153,3 +153,48 @@ const map = f => arr => arr.length === 0? [] : [f(arr[0])].concat(map(f)(arr.sli
 ```javascript
 const sum = accumulator => ([x, ...xs]) => x === undefined ? accumulator : sum(x + accumulator)(xs)
 ```
+
+### 递归
+
+```javascript
+function sum(x) {
+    if (x === 1) {
+        return 1;
+    }
+    return x + sum(--x);
+}
+
+sum(5)
+(5 + sum(4))
+(5 + (4 + sum(3)))
+(5 + (4 + (3 + sum(2))))
+(5 + (4 + (3 + (2 + sum(1)))))
+(5 + (4 + (3 + (2 + 1))))
+(5 + (4 + (3 + 3)))
+(5 + (4 + 6))
+(5 + 10)
+15
+
+// 尾递归优化
+
+function sum(x, total) {
+    if (x === 1) {
+        return x + total;
+    }
+    return sum(x - 1, x + total);
+}
+
+sum(5, 0)
+sum(4, 5)
+sum(3, 9)
+sum(2, 12)
+sum(1, 14)
+15
+
+```
+
+> ES6的尾调用优化只在严格模式下开启，正常模式是无效的。这是因为在正常模式下，函数内部有两个变量，可以跟踪函数的调用栈。
+> 1. arguments：返回调用时函数的参数。
+> 2. func.caller：返回调用当前函数的那个函数。
+>
+> 尾调用优化发生时，函数的调用栈会改写，因此上面两个变量就会失真。严格模式禁用这两个变量，所以尾调用模式仅在严格模式下生效。
